@@ -1,0 +1,44 @@
+{
+
+  "A. Interface": "A. 인터페이스",
+  "B. Dialogs": "B. 대화 상자",
+  "C. Gameplay": "C. 게임플레이",
+  "D. Mouse": "D. 마우스",
+  "E. Interface Keybinds": "E. 인터페이스 단축키",
+  "F. Item Keybinds": "F. 아이템 단축키",
+  "G. Gameplay Keybinds": "G. 게임플레이 단축키",
+  "H. Multiselect": "H. 다중 선택",
+  "I. Item Swapping": "I. 아이템 교체",
+  "J. Item Stacking": "J. 아이템 쌓기",
+  "K. Containers": "K. 컨테이너",
+  "L. Inspect Windows": "L. 살펴보기 창",
+  "M. Stash": "M. 스태시",
+  "N. Trading": "N. 거래",
+  "O. Flea Market": "O. 플리마켓",
+  "P. Add Offer": "P. 오퍼 등록",
+
+  "Keep Messages Window Open": "메시지 창 계속 열어두기",
+  "After receiving items from a transfer, reopen the messages window where you left off": "아이템 전송 후, 마지막으로 사용했던 메시지 창을 다시 엽니다",
+  "Autofill Quest Item Turn-ins": "퀘스트 아이템 자동 제출",
+  "Auto-select matching items when turning in quest items. Like pushing the AUTO button for you.": "퀘스트 아이템 제출 시 일치하는 아이템을 자동으로 선택합니다. 마치 AUTO 버튼을 누른 것처럼 동작합니다.",
+  "Context Menu Flyout on Right": "컨텍스트 메뉴 오른쪽 표시",
+  "Open context menu sub-menu to the right, as BSG intended but failed to do": "BSG가 의도했지만 실패했던 것처럼 컨텍스트 하위 메뉴를 오른쪽으로 엽니다",
+
+
+
+  "On Close": "닫을 때",
+  "Never": "사용 안함",
+  "Always": "항상",
+  "First Available Space": "첫 번째 빈 공간",
+  "Same Row or Below (Wrapping)": "같은 줄 또는 아래 (줄 바꿈)",
+  "Keep Original Spacing (Best Effort)": "원본 간격 유지 (최선)",
+  "None": "없음",
+  "Minimum": "최소",
+  "Average": "평균",
+  "Maximum": "최대",
+  "Shift": "Shift",
+  "Control": "Control",
+  "Alt": "Alt",
+  "With Multitool": "멀티툴 사용 시"
+
+}

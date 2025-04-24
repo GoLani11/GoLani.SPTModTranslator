@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProjectGuid>{80F7C63C-3C4C-4D1A-9D1D-9F9AE4A2954B}</ProjectGuid>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>KoreanPatcher</AssemblyName>
+    <RootNamespace>KoreanPatcher</RootNamespace>
+    <OutputPath>..\BepInEx\plugins\MyKoreanPatcher\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\..\Desktop\모드작업\3.11 SPT ASSET\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>..\..\Desktop\모드작업\3.11 SPT ASSET\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Desktop\모드작업\3.11 SPT ASSET\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\Desktop\모드작업\3.11 SPT ASSET\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project> 

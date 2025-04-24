@@ -1,0 +1,19 @@
+[
+  {
+    "Enabled": true,
+    "TargetAssembly": "ExampleMod",
+    "TargetType": "ExampleMod.UI.ExampleUI",
+    "TargetMethod": "GetButtonText",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "ExampleMod"
+  },
+  {
+    "Enabled": true,
+    "TargetAssembly": "ExampleMod",
+    "TargetType": "ExampleMod.Core.ExampleLogic",
+    "TargetMethod": "ShowMessage",
+    "PatchType": "PrefixStringParameter",
+    "ParameterIndex": 0,
+    "TranslationModID": "ExampleMod"
+  }
+] 

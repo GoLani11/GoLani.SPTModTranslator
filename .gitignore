@@ -1,0 +1,17 @@
+# Visual Studio files
+.vs/
+[Bb]in/
+[Oo]bj/
+
+# Build output folder (BepInEx structure)
+BepInEx/plugins/MyKoreanPatcher/
+
+# Rider files
+.idea/
+*.user
+*.suo
+
+# Misc
+*.log
+*.log.*
+*.[Cc]ache 
