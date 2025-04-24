@@ -6,7 +6,7 @@ using BepInEx.Logging;
 using Newtonsoft.Json;
 using KoreanPatcher.Models;
 
-namespace KoreanPatcher.Core
+namespace GoLaniSPTModTranslator.Core
 {
     public static class PatchDefinitionService
     {

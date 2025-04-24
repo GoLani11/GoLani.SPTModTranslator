@@ -5,7 +5,7 @@ using System.Reflection;
 using BepInEx.Logging;
 using Newtonsoft.Json;
 
-namespace KoreanPatcher.Core
+namespace GoLaniSPTModTranslator.Core
 {
     public static class TranslationService
     {
@@ -53,8 +53,15 @@ namespace KoreanPatcher.Core
         // 원문에 대한 번역 반환
         public static string GetTranslation(string modId, string original)
         {
-            if (translations.TryGetValue(modId, out var dict) && dict.TryGetValue(original, out var translated))
-                return translated;
+            if (modId == "GLOBAL")
+            {
+                foreach (var translationDict in translations.Values)
+                    if (translationDict.TryGetValue(original, out var translated))
+                        return translated;
+                return original;
+            }
+            if (translations.TryGetValue(modId, out var dict) && dict.TryGetValue(original, out var translated2))
+                return translated2;
             return original;
         }
     }

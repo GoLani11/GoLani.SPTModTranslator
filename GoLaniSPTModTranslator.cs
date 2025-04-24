@@ -3,16 +3,16 @@ using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Configuration;
-using KoreanPatcher.Core;
+using GoLaniSPTModTranslator.Core;
 using System.Collections.Generic;
 
-namespace KoreanPatcher
+namespace GoLaniSPTModTranslator
 {
-    [BepInPlugin("com.gomim.koreanpatcher", "KoreanPatcher", "1.0.0")]
-    public class KoreanPatcher : BaseUnityPlugin
+    [BepInPlugin("com.golani.sptmodtranslator", "GoLani SPT Mod Translator", "0.0.2")]
+    public class GoLaniSPTModTranslator : BaseUnityPlugin
     {
         // 싱글톤 인스턴스
-        public static KoreanPatcher Instance { get; private set; }
+        public static GoLaniSPTModTranslator Instance { get; private set; }
         private bool _needReapply;
 
         private ManualLogSource Log;
@@ -20,12 +20,15 @@ namespace KoreanPatcher
         // 언어 선택 ConfigEntry
         public static ConfigEntry<string> SelectedLanguage;
 
+        // 모드 전체 활성화 ConfigEntry
+        public static ConfigEntry<bool> ModEnabled;
+
         private void Awake()
         {
             Instance = this;
             _needReapply = false;
             Log = Logger;
-            Log.LogInfo("KoreanPatcher 초기화 시작");
+            Log.LogInfo("GoLani SPT Mod Translator 초기화 시작");
 
             // 지원 언어 코드 자동 탐색 (translations/ 하위 폴더)
             var pluginFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -34,7 +37,7 @@ namespace KoreanPatcher
                 ? Directory.GetDirectories(translationsRoot).Select(Path.GetFileName).ToArray()
                 : new string[] { "ko" };
 
-            SelectedLanguage = Config.Bind("번역", "언어", langCodes.Contains("ko") ? "ko" : langCodes.FirstOrDefault() ?? "ko",
+            SelectedLanguage = Config.Bind("번역 (※ 변경 후 메뉴를 껐다 켜세요! F12 다시 열기)", "언어", langCodes.Contains("ko") ? "ko" : langCodes.FirstOrDefault() ?? "ko",
                 new ConfigDescription("사용할 번역 언어 (폴더명 기준)", new AcceptableValueList<string>(langCodes)));
             SelectedLanguage.SettingChanged += (s, e) =>
             {
@@ -42,22 +45,36 @@ namespace KoreanPatcher
                 PatchService.ReapplyPatches();
             };
 
+            // 모드 전체 활성화 ConfigEntry
+            ModEnabled = Config.Bind("기본 (※ 변경 후 메뉴를 껐다 켜세요! F12 다시 열기)", "모드 활성화", true, "이 모드를 전체적으로 활성화/비활성화합니다.");
+            ModEnabled.SettingChanged += (s, e) =>
+            {
+                if (ModEnabled.Value)
+                {
+                    PatchService.ApplyPatches();
+                }
+                else
+                {
+                    PatchService.UnpatchAll();
+                    PatchService.ClearPatchMap();
+                }
+            };
+
             // 번역 서비스 초기화 (기본 언어)
             TranslationService.Initialize(Log, SelectedLanguage.Value);
             // 패치 정의 로드
             PatchDefinitionService.Initialize(Log);
-            // 모드별 번역 활성화 ConfigEntry 생성
-            ModTranslationConfigService.Initialize(this);
             // 패치 서비스 초기화 및 적용
             PatchService.Initialize(Log);
-            PatchService.ApplyPatches();
+            if (ModEnabled.Value)
+                PatchService.ApplyPatches();
 
-            Log.LogInfo("KoreanPatcher 초기화 완료");
+            Log.LogInfo("GoLani SPT Mod Translator 초기화 완료");
         }
 
         private void Update()
         {
-            if (_needReapply)
+            if (_needReapply && ModEnabled.Value)
             {
                 PatchService.ReapplyPatches();
                 _needReapply = false;
@@ -73,7 +90,7 @@ namespace KoreanPatcher
         private void OnDestroy()
         {
             PatchService.UnpatchAll();
-            Log.LogInfo("KoreanPatcher 종료");
+            Log.LogInfo("GoLani SPT Mod Translator 종료");
         }
     }
 } 

@@ -1,0 +1,37 @@
+[
+  {
+    "Enabled": true,
+    "TargetType": "BepInEx.Configuration.ConfigDefinition",
+    "TargetMethod": "get_Section",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "GLOBAL"
+  },
+  {
+    "Enabled": true,
+    "TargetType": "BepInEx.Configuration.ConfigDefinition",
+    "TargetMethod": "get_Key",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "GLOBAL"
+  },
+  {
+    "Enabled": true,
+    "TargetType": "BepInEx.Configuration.ConfigDescription",
+    "TargetMethod": "get_Description",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "GLOBAL"
+  },
+  {
+    "Enabled": true,
+    "TargetType": "System.ComponentModel.DescriptionAttribute",
+    "TargetMethod": "get_Description",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "GLOBAL"
+  },
+  {
+    "Enabled": true,
+    "TargetType": "System.Enum",
+    "TargetMethod": "ToString",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "GLOBAL"
+  }
+] 

@@ -1,0 +1,11 @@
+{
+  "AmandsGraphics Cinematic": "아만즈그래픽 시네마틱",
+  "AmandsGraphics Experimental": "아만즈그래픽 실험적 기능",
+  "AmandsGraphics Features": "아만즈그래픽 기능",
+  "GraphicsToggle": "그래픽 토글",
+  "DebugMode": "디버그 모드",
+  "Shift + Insert will toggle only the selected DebugMode feature": "Shift + Insert를 누르면 선택된 디버그 모드 기능만 토글됩니다.",
+  "HBAO": "HBAO",
+  "SSAO": "SSAO",
+  "None": "없음"
+}

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace KoreanPatcher.Models
+namespace GoLaniSPTModTranslator.Models
 {
     // 패치 정의 모델
     public class PatchDefinition

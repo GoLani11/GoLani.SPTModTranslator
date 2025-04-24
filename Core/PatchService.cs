@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using BepInEx.Logging;
-using KoreanPatcher.Models;
-using KoreanPatcher;
+using GoLaniSPTModTranslator.Models;
 
-namespace KoreanPatcher.Core
+namespace GoLaniSPTModTranslator.Core
 {
     public static class PatchService
     {
@@ -120,10 +119,6 @@ namespace KoreanPatcher.Core
             PatchDefinition def;
             if (PatchDefinitionMap.TryGetValue(__originalMethod, out def))
             {
-                // 번역 활성화 설정 체크
-                if (ModTranslationConfigService.ModTranslationEnabled.ContainsKey(def.TranslationModID) &&
-                    !ModTranslationConfigService.ModTranslationEnabled[def.TranslationModID].Value)
-                    return;
                 __result = TranslationService.GetTranslation(def.TranslationModID, __result);
             }
         }
@@ -134,9 +129,6 @@ namespace KoreanPatcher.Core
             PatchDefinition def;
             if (PatchDefinitionMap.TryGetValue(__originalMethod, out def) && def.ParameterIndex.HasValue)
             {
-                if (ModTranslationConfigService.ModTranslationEnabled.ContainsKey(def.TranslationModID) &&
-                    !ModTranslationConfigService.ModTranslationEnabled[def.TranslationModID].Value)
-                    return;
                 int idx = def.ParameterIndex.Value;
                 if (idx >= 0 && idx < __args.Length && __args[idx] is string)
                     __args[idx] = TranslationService.GetTranslation(def.TranslationModID, (string)__args[idx]);
@@ -149,13 +141,15 @@ namespace KoreanPatcher.Core
             PatchDefinition def;
             if (PatchDefinitionMap.TryGetValue(__originalMethod, out def) && def.ParameterIndex.HasValue)
             {
-                if (ModTranslationConfigService.ModTranslationEnabled.ContainsKey(def.TranslationModID) &&
-                    !ModTranslationConfigService.ModTranslationEnabled[def.TranslationModID].Value)
-                    return;
                 int idx = def.ParameterIndex.Value;
                 if (idx >= 0 && idx < __args.Length && __args[idx] is string)
                     __args[idx] = TranslationService.GetTranslation(def.TranslationModID, (string)__args[idx]);
             }
+        }
+
+        public static void ClearPatchMap()
+        {
+            PatchDefinitionMap.Clear();
         }
     }
 } 
