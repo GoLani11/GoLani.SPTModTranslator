@@ -11,34 +11,37 @@ namespace KoreanPatcher.Core
     {
         private static ManualLogSource log;
         private static Dictionary<string, Dictionary<string, string>> translations = new Dictionary<string, Dictionary<string, string>>();
+        private static string lastLang = "ko";
 
         // 초기화 및 번역 로드
-        public static void Initialize(ManualLogSource logger)
+        public static void Initialize(ManualLogSource logger, string lang)
         {
             log = logger;
-            LoadTranslations();
+            ReloadTranslations(lang);
         }
 
-        // 번역 JSON 파일 로드
-        private static void LoadTranslations()
+        // 언어 변경 시 번역 재로드
+        public static void ReloadTranslations(string lang)
         {
+            translations.Clear();
+            lastLang = lang;
             string pluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string folder = Path.Combine(pluginFolder, "translations");
+            string folder = Path.Combine(pluginFolder, "translations", lang);
             if (!Directory.Exists(folder))
             {
                 log.LogWarning($"번역 폴더가 존재하지 않음: {folder}");
                 return;
             }
 
-            foreach (var file in Directory.GetFiles(folder, "*_ko.json"))
+            foreach (var file in Directory.GetFiles(folder, "*_" + lang + ".json"))
             {
                 try
                 {
-                    string modId = Path.GetFileNameWithoutExtension(file).Replace("_ko", string.Empty);
+                    string modId = Path.GetFileNameWithoutExtension(file).Replace("_" + lang, "");
                     string json = File.ReadAllText(file);
                     var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                     translations[modId] = dict;
-                    log.LogInfo($"번역 로드: {modId}, 총 {dict.Count}개");
+                    log.LogInfo($"번역 로드: {modId} ({lang}), 총 {dict.Count}개");
                 }
                 catch (Exception ex)
                 {

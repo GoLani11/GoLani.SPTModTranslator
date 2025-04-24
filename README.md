@@ -109,7 +109,3 @@ SPTarkov(Single Player Tarkov)의 다양한 BepInEx 플러그인 모드들에 �
     *   `Newtonsoft.Json`
 
 솔루션을 열고 빌드하면 `BepInEx/plugins/MyKoreanPatcher/` 폴더에 DLL이 생성됩니다.
-
-## 라이선스
-
-(라이선스 정보를 여기에 추가하세요. 예: MIT License) 
