@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using BepInEx.Logging;
 using Newtonsoft.Json;
-using KoreanPatcher.Models;
+using GoLaniSPTModTranslator.Models;
 
 namespace GoLaniSPTModTranslator.Core
 {

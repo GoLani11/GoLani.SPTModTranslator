@@ -24,7 +24,4 @@
       <HintPath>..\..\Desktop\모드작업\3.11 SPT ASSET\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GoLaniSPTModTranslator.cs" />
-  </ItemGroup>
 </Project> 

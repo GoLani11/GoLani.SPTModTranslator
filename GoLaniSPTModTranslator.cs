@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace GoLaniSPTModTranslator
 {
-    [BepInPlugin("com.golani.sptmodtranslator", "GoLani SPT Mod Translator", "0.0.2")]
+    [BepInPlugin("com.golani.sptmodtranslator", "GoLani SPT Mod Translator", "0.1.0")]
     public class GoLaniSPTModTranslator : BaseUnityPlugin
     {
         // 싱글톤 인스턴스
@@ -22,6 +22,9 @@ namespace GoLaniSPTModTranslator
 
         // 모드 전체 활성화 ConfigEntry
         public static ConfigEntry<bool> ModEnabled;
+
+        // 미번역 추출 ConfigEntry
+        public static ConfigEntry<bool> ExtractUntranslated;
 
         private void Awake()
         {
@@ -57,6 +60,22 @@ namespace GoLaniSPTModTranslator
                 {
                     PatchService.UnpatchAll();
                     PatchService.ClearPatchMap();
+                }
+            };
+
+            // 미번역 추출 ConfigEntry 추가
+            ExtractUntranslated = Config.Bind("도구", "미번역 문자열 추출 (체크 후 F12 닫기)", false, "이 항목을 체크하면 미번역 문자열을 untranslations 폴더에 모드별로 추출합니다. 완료 후 자동으로 체크 해제됩니다.");
+            ExtractUntranslated.SettingChanged += (s, e) =>
+            {
+                if (ExtractUntranslated.Value)
+                {
+                    // 체크되었을 때 - 미번역 추출 시작
+                    UntranslatedExtractor.ExtractAllUntranslated(Log, SelectedLanguage.Value);
+                }
+                else
+                {
+                    // 체크 해제됐을 때 - 미번역 추출 종료
+                    UntranslatedExtractor.FinishExtraction(Log);
                 }
             };
 
