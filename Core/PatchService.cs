@@ -19,7 +19,7 @@ namespace GoLaniSPTModTranslator.Core
         public static void Initialize(ManualLogSource logger)
         {
             _log = logger;
-            _harmony = new Harmony("com.gomim.koreanpatcher");
+            _harmony = new Harmony("com.golani.sptmodtranslator");
         }
 
         // 모든 패치 적용
@@ -68,15 +68,15 @@ namespace GoLaniSPTModTranslator.Core
                 HarmonyMethod postfix = null;
                 switch (def.PatchType)
                 {
-                    case "PostfixReturnString":
+                    case Models.PatchTypeEnum.PostfixReturnString:
                         postfix = new HarmonyMethod(typeof(PatchService).GetMethod(
                             nameof(HandlePostfixReturnString), BindingFlags.Static | BindingFlags.NonPublic));
                         break;
-                    case "PrefixRefStringParameter":
+                    case Models.PatchTypeEnum.PrefixRefStringParameter:
                         prefix = new HarmonyMethod(typeof(PatchService).GetMethod(
                             nameof(HandlePrefixRefStringParameter), BindingFlags.Static | BindingFlags.NonPublic));
                         break;
-                    case "PrefixStringParameter":
+                    case Models.PatchTypeEnum.PrefixStringParameter:
                         prefix = new HarmonyMethod(typeof(PatchService).GetMethod(
                             nameof(HandlePrefixStringParameter), BindingFlags.Static | BindingFlags.NonPublic));
                         break;

@@ -18,6 +18,7 @@ namespace GoLaniSPTModTranslator.Core
         public static void Initialize(ManualLogSource logger)
         {
             log = logger;
+            patchDefinitions.Clear();
             LoadDefinitions();
         }
 
@@ -31,13 +32,27 @@ namespace GoLaniSPTModTranslator.Core
                 return;
             }
 
+            var seen = new HashSet<string>();
             foreach (var file in Directory.GetFiles(folder, "*.json"))
             {
                 try
                 {
                     var json = File.ReadAllText(file);
                     var defs = JsonConvert.DeserializeObject<List<PatchDefinition>>(json);
-                    patchDefinitions.AddRange(defs);
+                    foreach (var def in defs)
+                    {
+                        // 중복 체크: TargetAssembly, TargetType, TargetMethod, PatchType, ParameterIndex, TranslationModID로 식별
+                        string key = $"{def.TargetAssembly}|{def.TargetType}|{def.TargetMethod}|{def.PatchType}|{def.ParameterIndex}|{def.TranslationModID}";
+                        if (!seen.Contains(key))
+                        {
+                            patchDefinitions.Add(def);
+                            seen.Add(key);
+                        }
+                        else
+                        {
+                            log.LogWarning($"중복된 패치 정의 무시: {key}");
+                        }
+                    }
                     log.LogInfo($"패치 정의 로드: {Path.GetFileName(file)} => {defs.Count}개");
                 }
                 catch (Exception ex)

@@ -2,142 +2,90 @@
 
 ---
 
-**GoLani SPT Mod Translator**는 SPTarkov(Single Player Tarkov)의 다양한 BepInEx 플러그인 모드에 한국어 번역을 쉽게 적용할 수 있는 플러그인입니다.
+**GoLani SPT Mod Translator**는 SPTarkov(싱글플레이어 타르코프) 게임의 다양한 모드(플러그인)에 여러 언어 번역을 쉽게 적용할 수 있도록 도와주는 도구입니다. 별도의 프로그래밍 지식 없이도 번역 파일만 추가하면, 게임 내에서 한글이나 원하는 언어로 모드의 텍스트를 볼 수 있습니다.
 
 ---
 
-## 목차
+## 이 플러그인은 어떤 기능을 하나요?
 
-1. [주요 기능](#주요-기능)
-2. [폴더 구조](#폴더-구조)
-3. [설치 및 사용법](#설치-및-사용법)
-4. [번역 파일/패치 정의 예시](#번역-파일패치-정의-예시)
-5. [입문자를 위한 번역 추가 가이드](#입문자를-위한-번역-추가-가이드)
-6. [개발 및 빌드](#개발-및-빌드)
-
----
-
-## 주요 기능
-
-- **원본 모드 수정 없이** 한국어 번역 적용
-- Harmony 라이브러리를 이용한 **동적 런타임 패치**
-- **JSON 파일**로 번역 및 패치 정의
-- 여러 모드 **동시 지원**
-- F12 설정 메뉴(BepInEx ConfigurationManager)에서 모드 전체 활성화/비활성화 및 언어 선택 가능
-- 설정 메뉴 자체 한글화 지원
+- 원본 모드를 수정하지 않고도 번역을 적용할 수 있습니다.
+- 여러 모드의 번역을 동시에 지원합니다.
+- 번역 파일과 번역 규칙(패치 정의)을 간단한 텍스트 파일(JSON)로 관리합니다.
+- 게임 내에서 F12 키로 설정 메뉴를 열어, 번역 언어와 모드 활성화 여부를 쉽게 바꿀 수 있습니다.
+- 번역되지 않은 문장을 자동으로 추출해주는 기능이 있습니다.
+- 중복된 번역 규칙(패치 정의)은 자동으로 걸러집니다.
 
 ---
 
-## 폴더 구조
+## 폴더 구조는 어떻게 되나요?
 
 ```
-/
-├─ KoreanPatcher.sln         # Visual Studio 솔루션 파일
-├─ KoreanPatcher.csproj      # C# 프로젝트 파일
-├─ Core/                     # 핵심 로직 (패치, 번역 등)
-├─ Models/                   # 데이터 모델 (PatchDefinition)
-├─ translations/             # 번역 데이터 폴더
-│  ├─ SomeMod_ko.json
+프로젝트 폴더/
+├─ translations/           # 번역 파일이 들어가는 곳
+│  ├─ ko/                  # 한국어 번역 폴더
+│  │   ├─ ExampleMod.json  # 예시: ExampleMod 모드의 한국어 번역
+│  ├─ ja/                  # 일본어 번역 폴더
+│  │   ├─ ExampleMod.json
 │  └─ ...
-├─ patch_definitions/        # 패치 정의 폴더
-│  ├─ SomeMod_patches.json
+├─ patch_definitions/      # 번역 규칙(패치 정의) 파일이 들어가는 곳
+│  ├─ ExampleMod_patches.json
 │  └─ ...
-├─ KoreanPatcher.cs          # 메인 플러그인 클래스
-└─ BepInEx/                  # (게임 설치 경로)
+└─ BepInEx/
    └─ plugins/
-      └─ MyKoreanPatcher/
-         ├─ KoreanPatcher.dll
+      └─ GoLaniSPTModTranslator/
+         ├─ GoLaniSPTModTranslator.dll
          ├─ translations/
          └─ patch_definitions/
 ```
 
 ---
 
-## 설치 및 사용법
+## 설치 방법
 
-1. **빌드:**
-   - `KoreanPatcher.sln`을 Visual Studio에서 열고 빌드합니다.
+1. **프로그램 빌드(제작):**
+   - Visual Studio에서 `GoLaniSPTModTranslator.sln` 파일을 열고 빌드(컴파일)합니다.
 2. **복사:**
-   - 빌드 결과물(`KoreanPatcher.dll`)과 `translations/`, `patch_definitions/` 폴더를
-     `BepInEx/plugins/MyKoreanPatcher/` 폴더에 복사합니다.
+   - 빌드가 끝나면 `GoLaniSPTModTranslator.dll` 파일과 `translations`, `patch_definitions` 폴더를
+     게임 폴더의 `BepInEx/plugins/GoLaniSPTModTranslator/` 폴더에 복사합니다.
 3. **실행:**
-   - SPTarkov를 실행합니다.
+   - SPTarkov 게임을 실행합니다.
 4. **설정:**
-   - 게임 내에서 F12 키를 눌러 ConfigurationManager 메뉴를 엽니다.
-   - "모드 활성화" 및 "언어"를 원하는 대로 설정하세요.
-   - **설정 변경 후에는 F12 메뉴를 껐다가 다시 여세요!**
+   - 게임 안에서 F12 키를 눌러 설정 메뉴를 엽니다.
+   - "모드 활성화"와 "언어"를 원하는 대로 선택하세요.
+   - 설정을 바꾼 뒤에는 F12 메뉴를 껐다가 다시 여는 것이 좋습니다.
 
 ---
 
-## 번역 파일/패치 정의 예시
+## 번역 파일은 어떻게 만드나요?
 
-### 번역 데이터 (`translations/ModName_ko.json`)
-```json
-{
-  "Original English Text": "번역된 한국어 텍스트",
-  "Save": "저장"
-}
-```
-
-### 패치 정의 (`patch_definitions/ModName_patches.json`)
-```json
-[
-  {
-    "Enabled": true,
-    "TargetAssembly": "TargetModAssemblyName",
-    "TargetType": "TargetMod.Namespace.ClassName",
-    "TargetMethod": "MethodNameToPatch",
-    "PatchType": "PostfixReturnString",
-    "TranslationModID": "ModName"
-  },
-  {
-    "Enabled": true,
-    "TargetType": "Another.Class.Name",
-    "TargetMethod": "MethodWithRefStringParam",
-    "PatchType": "PrefixRefStringParameter",
-    "ParameterIndex": 0,
-    "TranslationModID": "ModName"
-  }
-]
-```
-
-#### PatchType 종류
-- `PostfixReturnString`: string 반환값 번역
-- `PrefixRefStringParameter`: ref/out string 파라미터 번역 (ParameterIndex 필요)
-- `PrefixStringParameter`: 일반 string 파라미터 번역 (ParameterIndex 필요)
-
-#### BepInEx ConfigurationManager 설정 번역용 패치 예시
-- `BepInEx.Configuration.ConfigDefinition.get_Section`
-- `BepInEx.Configuration.ConfigDefinition.get_Key`
-- `BepInEx.Configuration.ConfigDescription.get_Description`
-- `System.ComponentModel.DescriptionAttribute.get_Description`
-- `System.Enum.ToString`
-
----
-
-## 입문자를 위한 번역 추가 가이드
-
-### 1. 번역 파일 만들기
-
-1. `translations/ko/` 폴더로 이동합니다.
-2. 새 파일을 만듭니다. 파일 이름은 반드시 `[모드이름]_ko.json` (예: `ExampleMod_ko.json`)
-3. 아래와 같이 영어와 한글을 "영어": "한글" 형태로 적어줍니다.
+1. `translations` 폴더 안에 원하는 언어 폴더(예: `ko`, `ja`, `en`)로 들어갑니다.
+2. 새 파일을 만듭니다. 파일 이름은 `[모드이름].json` (예: `ExampleMod.json`)
+3. 아래와 같이 실제 게임에서 나오는 영어 문장과 번역할 문장을 한 쌍씩 적어줍니다.
 
 ```json
 {
   "Save": "저장",
   "Cancel": "취소",
   "Settings": "설정",
-  "Original English Text": "예시 한글 번역"
+  "Original English Text": "예시 번역"
 }
 ```
-- "Save"는 게임/모드에서 실제로 나오는 영어 단어나 문장입니다.
-- "저장"은 여러분이 원하는 한글 번역입니다.
+- 왼쪽(영어)은 게임/모드에서 실제로 나오는 문장입니다.
+- 오른쪽(한글 등)은 여러분이 원하는 번역입니다.
 
-### 2. 패치 정의 파일 만들기
+---
 
-1. `patch_definitions/` 폴더로 이동합니다.
-2. 새 파일을 만듭니다. 파일 이름은 반드시 `[모드이름]_patches.json` (예: `ExampleMod_patches.json`)
+## 패치 정의 파일은 언제, 왜 만들어야 하나요?
+
+> **중요:**
+> - 게임 내 F12로 열 수 있는 설정 메뉴(설정명, 설명 등)는 플러그인에서 자동으로 번역이 적용됩니다.
+> - **따라서, 대부분의 경우 번역 파일만 만들면 됩니다!**
+> - 아래의 "패치 정의 파일"은 각 모드의 고유 UI, 대화창, 버튼, 팝업 등 "설정 메뉴 이외"의 부분을 번역하고 싶을 때만 필요합니다.
+
+### 패치 정의 파일 만드는 방법
+
+1. `patch_definitions` 폴더로 이동합니다.
+2. 새 파일을 만듭니다. 파일 이름은 `[모드이름]_patches.json` (예: `ExampleMod_patches.json`)
 3. 아래와 같이 작성합니다.
 
 ```json
@@ -146,9 +94,9 @@
     "Enabled": true,
     "TargetAssembly": "ExampleMod", // 번역할 모드의 DLL 이름(확장자 .dll 빼고)
     "TargetType": "ExampleMod.UI.ExampleUI", // 번역할 클래스 전체 이름
-    "TargetMethod": "GetButtonText", // 번역할 메소드 이름
+    "TargetMethod": "GetButtonText", // 번역할 함수(메소드) 이름
     "PatchType": "PostfixReturnString", // 반환값(string) 번역
-    "TranslationModID": "ExampleMod" // 위에서 만든 번역 파일명 앞부분과 같아야 함
+    "TranslationModID": "ExampleMod" // 번역 파일명 앞부분과 같아야 함
   },
   {
     "Enabled": true,
@@ -162,39 +110,53 @@
 ]
 ```
 
-#### 각 항목 설명
+#### 주요 항목 설명
 - `TargetAssembly`: 번역할 모드의 DLL 파일 이름(확장자 .dll은 빼고)
 - `TargetType`: 번역할 클래스의 전체 이름(네임스페이스 포함)
 - `TargetMethod`: 번역할 함수(메소드) 이름
-- `PatchType`: 번역 방식
-  - `PostfixReturnString`: 함수의 반환값(string)을 번역
-  - `PrefixStringParameter`: 함수의 파라미터(string)를 번역
+- `PatchType`: 번역 방식 (아래 참고)
 - `ParameterIndex`: 번역할 파라미터가 여러 개일 때, 몇 번째(string)인지(0부터 시작)
-- `TranslationModID`: 번역 파일명 앞부분(예: ExampleMod_ko.json → ExampleMod)
+- `TranslationModID`: 번역 파일명 앞부분(예: ExampleMod.json → ExampleMod)
 
-### 3. 번역 적용하기
-
-1. 위 두 파일을 각각 폴더에 넣고 게임을 실행합니다.
-2. F12를 눌러 모드가 활성화되어 있는지 확인합니다.
-3. 게임 내에서 번역이 적용되는지 확인합니다.
-
-### 💡 추가 팁
-
-- 번역하고 싶은 영어 문장은 게임에서 직접 복사하거나, 기존 번역 파일을 참고하면 됩니다.
-- 번역이 바로 적용되지 않으면 F12 메뉴를 껐다가 다시 켜보세요.
+#### PatchType 종류
+- `PostfixReturnString`: 함수의 반환값(string)을 번역
+- `PrefixRefStringParameter`: ref/out string 파라미터 번역 (ParameterIndex 필요)
+- `PrefixStringParameter`: 일반 string 파라미터 번역 (ParameterIndex 필요)
 
 ---
 
-## 개발 및 빌드
+## 번역 적용 및 확인 방법
 
-- Visual Studio 2019 이상 (.NET Framework 4.7.2 타겟)
-- 필요 라이브러리 (NuGet 또는 직접 참조):
+1. 번역 파일(`translations/ko/ExampleMod.json` 등)과 필요한 경우 패치 정의 파일(`patch_definitions/ExampleMod_patches.json`)을 준비합니다.
+2. 게임을 실행하고, F12로 설정 메뉴를 열어 모드가 활성화되어 있는지 확인합니다.
+3. 게임 내에서 번역이 잘 적용되는지 확인합니다.
+
+---
+
+## 자주 묻는 질문(FAQ)
+
+**Q. 번역 파일만 만들면 되나요?**
+- 네, 대부분의 경우(설정 메뉴 등)는 번역 파일만 있으면 됩니다. 각 모드의 고유 UI/텍스트를 번역하고 싶을 때만 패치 정의 파일이 필요합니다.
+
+**Q. 번역이 바로 적용되지 않아요!**
+- F12 메뉴를 껐다가 다시 열어보세요. 그래도 안 되면 게임을 재시작해보세요.
+
+**Q. 번역되지 않은 문장은 어떻게 찾나요?**
+- F12 설정에서 "미번역 문자열 추출"을 체크하면, 게임을 탐색하는 동안 번역되지 않은 문장이 자동으로 추출됩니다. 추출이 끝나면 untranslations 폴더에서 확인할 수 있습니다.
+
+**Q. 여러 언어를 동시에 지원할 수 있나요?**
+- 네! `translations/ko/`, `translations/ja/`, `translations/en/` 등 원하는 언어 폴더에 번역 파일을 추가하면, F12 메뉴에서 언어를 바꿔가며 사용할 수 있습니다.
+
+---
+
+## 개발 및 빌드(개발자용)
+
+- Visual Studio 2019 이상 (.NET Framework 4.7.2)
+- NuGet 또는 직접 참조:
     - `BepInEx.Core`
     - `BepInEx.PluginInfoProps`
     - `UnityEngine.CoreModule`
     - `0Harmony`
     - `Newtonsoft.Json`
-
-솔루션을 열고 빌드하면 `BepInEx/plugins/MyKoreanPatcher/` 폴더에 DLL이 생성됩니다.
 
 ---

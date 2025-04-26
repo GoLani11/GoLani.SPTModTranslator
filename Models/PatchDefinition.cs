@@ -2,6 +2,15 @@ using Newtonsoft.Json;
 
 namespace GoLaniSPTModTranslator.Models
 {
+    // 패치 타입 enum
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PatchTypeEnum
+    {
+        PostfixReturnString,
+        PrefixRefStringParameter,
+        PrefixStringParameter
+    }
+
     // 패치 정의 모델
     public class PatchDefinition
     {
@@ -18,7 +27,7 @@ namespace GoLaniSPTModTranslator.Models
         public string TargetMethod { get; set; }
 
         [JsonProperty("PatchType")]
-        public string PatchType { get; set; }
+        public PatchTypeEnum PatchType { get; set; }
 
         [JsonProperty("ParameterIndex")]
         public int? ParameterIndex { get; set; }

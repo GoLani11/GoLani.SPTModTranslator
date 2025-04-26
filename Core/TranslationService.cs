@@ -11,7 +11,6 @@ namespace GoLaniSPTModTranslator.Core
     {
         private static ManualLogSource log;
         private static Dictionary<string, Dictionary<string, string>> translations = new Dictionary<string, Dictionary<string, string>>();
-        private static string lastLang = "ko";
         private static HashSet<string> loggedUntranslated = new HashSet<string>();
         private static object untranslatedLock = new object();
         private static bool enableUntranslatedLogging = false;
@@ -27,7 +26,6 @@ namespace GoLaniSPTModTranslator.Core
         public static void ReloadTranslations(string lang)
         {
             translations.Clear();
-            lastLang = lang;
             string pluginFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string folder = Path.Combine(pluginFolder, "translations", lang);
             if (!Directory.Exists(folder))
@@ -36,11 +34,15 @@ namespace GoLaniSPTModTranslator.Core
                 return;
             }
 
-            foreach (var file in Directory.GetFiles(folder, "*_" + lang + ".json"))
+            // 새 방식: [ModID].json
+            foreach (var file in Directory.GetFiles(folder, "*.json"))
             {
+                string modId = Path.GetFileNameWithoutExtension(file);
+                // 하위 호환: _ko 등 언어코드가 붙은 파일명은 modId에서 제거
+                if (modId.EndsWith("_" + lang))
+                    modId = modId.Substring(0, modId.Length - (lang.Length + 1));
                 try
                 {
-                    string modId = Path.GetFileNameWithoutExtension(file).Replace("_" + lang, "");
                     string json = File.ReadAllText(file);
                     var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                     translations[modId] = dict;
@@ -91,7 +93,8 @@ namespace GoLaniSPTModTranslator.Core
         // 원문에 대한 번역 반환
         public static string GetTranslation(string modId, string original)
         {
-            if (modId == "ConfigManu")
+            // ConfigMenu: BepInEx ConfigurationManager 등 공용 UI 번역용
+            if (modId == "ConfigMenu")
             {
                 foreach (var translationDict in translations.Values)
                     if (translationDict.TryGetValue(original, out var translated))

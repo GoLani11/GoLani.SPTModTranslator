@@ -5,7 +5,6 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>GoLaniSPTModTranslator</AssemblyName>
     <RootNamespace>GoLaniSPTModTranslator</RootNamespace>
-    <OutputPath>..\BepInEx\plugins\MyKoreanPatcher\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
