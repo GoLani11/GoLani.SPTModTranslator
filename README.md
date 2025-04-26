@@ -1,5 +1,7 @@
 # GoLani SPT Mod Translator
 
+> English README is available here: [README_EN.md](./README_EN.md)
+
 ---
 
 **GoLani SPT Mod Translator**는 SPTarkov(싱글플레이어 타르코프) 게임의 다양한 모드(플러그인)에 여러 언어 번역을 쉽게 적용할 수 있도록 도와주는 도구입니다. 별도의 프로그래밍 지식 없이도 번역 파일만 추가하면, 게임 내에서 한글이나 원하는 언어로 모드의 텍스트를 볼 수 있습니다.
