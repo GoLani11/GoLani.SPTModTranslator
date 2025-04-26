@@ -159,6 +159,7 @@ Project Folder/
     - `0Harmony`
     - `Newtonsoft.Json`
 
-After building, the DLL will be in `BepInEx/plugins/GoLaniSPTModTranslator/`.
-
 --- 
+
+## AI Support
+- This project was developed with the assistance of Cursor AI.
