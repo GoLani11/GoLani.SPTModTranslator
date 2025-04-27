@@ -44,11 +44,11 @@
 
 ## 설치 방법
 
-1. **프로그램 빌드(제작):**
-   - Visual Studio에서 `GoLaniSPTModTranslator.sln` 파일을 열고 빌드(컴파일)합니다.
-2. **복사:**
-   - 빌드가 끝나면 `GoLaniSPTModTranslator.dll` 파일과 `translations`, `patch_definitions` 폴더를
-     게임 폴더의 `BepInEx/plugins/GoLaniSPTModTranslator/` 폴더에 복사합니다.
+1. **플러그인 모드 다운로드:**
+   - 최신 릴리즈에서 공유중인 GoLani.SPTModTranslator.zip 을 받고 압축을 해제합니다.
+2. **모드 적용:**
+   - `SPT 설치 폴더\BepInEx\plugins\GoLani.SPTModTranslator\translations` 내에 
+      해당하는 언어 폴더에 `모드 이름.json` 을 넣어둡니다.
 3. **실행:**
    - SPTarkov 게임을 실행합니다.
 4. **설정:**

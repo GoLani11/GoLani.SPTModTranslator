@@ -42,16 +42,16 @@ Project Folder/
 
 ## Installation
 
-1. **Build the program:**
-   - Open `GoLaniSPTModTranslator.sln` in Visual Studio and build (compile) it.
-2. **Copy files:**
-   - After building, copy the `GoLaniSPTModTranslator.dll` file and the `translations` and `patch_definitions` folders
-     into your game's `BepInEx/plugins/GoLaniSPTModTranslator/` folder.
+1. **Download the plugin mod:**
+   - Download the latest `GoLani.SPTModTranslator.zip` from the releases and extract it.
+2. **Apply the mod:**
+   - Put your translation files (e.g., `ModName.json`) into the appropriate language folder under  
+     `SPT install folder\BepInEx\plugins\GoLani.SPTModTranslator\translations`.
 3. **Run the game:**
    - Start SPTarkov.
 4. **Configure:**
    - In-game, press F12 to open the settings menu.
-   - Choose your preferred language and enable/disable the plugin as you like.
+   - Select "Enable Mod" and your preferred "Language".
    - After changing settings, it's best to close and reopen the F12 menu.
 
 ---
