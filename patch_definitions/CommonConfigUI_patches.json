@@ -26,12 +26,5 @@
     "TargetMethod": "get_Description",
     "PatchType": "PostfixReturnString",
     "TranslationModID": "ConfigMenu"
-  },
-  {
-    "Enabled": true,
-    "TargetType": "System.Enum",
-    "TargetMethod": "ToString",
-    "PatchType": "PostfixReturnString",
-    "TranslationModID": "ConfigMenu"
   }
 ] 

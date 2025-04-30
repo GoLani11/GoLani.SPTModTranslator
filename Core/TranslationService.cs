@@ -60,8 +60,19 @@ namespace GoLaniSPTModTranslator.Core
         {
             lock(untranslatedLock)
             {
-                enableUntranslatedLogging = enable;
-                if (enable) loggedUntranslated.Clear();
+                // 이전 상태와 다를 때만 초기화
+                if (enableUntranslatedLogging != enable)
+                {
+                    enableUntranslatedLogging = enable;
+                    // 활성화 시 로그 캐시 초기화
+                    loggedUntranslated.Clear();
+                    
+                    // 활성화 시 안내 로그 출력
+                    if (enable && log != null)
+                    {
+                        log.LogInfo("미번역 문자열 추출 활성화: untranslations 폴더에 기록됩니다");
+                    }
+                }
             }
         }
 
@@ -69,6 +80,27 @@ namespace GoLaniSPTModTranslator.Core
         private static void LogUntranslated(string modId, string original)
         {
             if (string.IsNullOrWhiteSpace(original) || !enableUntranslatedLogging) return;
+            
+            // 한 번 더 모든 번역 딕셔너리를 검색하여 진짜 미번역인지 확인
+            // ConfigMenu의 경우 모든 딕셔너리에서 찾아봄
+            if (modId == "ConfigMenu")
+            {
+                foreach (var translationDict in translations.Values)
+                {
+                    if (translationDict.TryGetValue(original, out _))
+                    {
+                        // 이미 번역이 존재하므로 기록하지 않음
+                        return;
+                    }
+                }
+            }
+            // 특정 모드 ID인 경우 해당 모드의 번역 딕셔너리만 확인
+            else if (translations.TryGetValue(modId, out var dict) && dict.TryGetValue(original, out _))
+            {
+                // 이미 번역이 존재하므로 기록하지 않음
+                return;
+            }
+
             lock (untranslatedLock)
             {
                 string key = $"{modId}|{original}";
@@ -97,15 +129,38 @@ namespace GoLaniSPTModTranslator.Core
             if (modId == "ConfigMenu")
             {
                 foreach (var translationDict in translations.Values)
+                {
                     if (translationDict.TryGetValue(original, out var translated))
                         return translated;
-                LogUntranslated(modId, original);
+                }
+                // 모든 딕셔너리에서 찾지 못한 경우만 미번역으로 기록
+                if (enableUntranslatedLogging)
+                    LogUntranslated(modId, original);
                 return original;
             }
+            
+            // 일반 모듈 번역: 해당 모듈의 딕셔너리에서만 검색
             if (translations.TryGetValue(modId, out var dict) && dict.TryGetValue(original, out var translated2))
                 return translated2;
-            LogUntranslated(modId, original);
+                
+            // 번역이 없을 때만 미번역으로 기록
+            if (enableUntranslatedLogging)
+                LogUntranslated(modId, original);
             return original;
         }
+
+        // UI용 Enum 표시 문자열 가져오기 (번역된 문자열)
+        // public static string GetEnumDisplayText(object enumValue)
+        // {
+        //     if (enumValue == null) return string.Empty;
+        //     string strValue = enumValue.ToString();
+        //     return GetTranslation("ConfigMenu", strValue);
+        // }
+
+        // Enum의 원본 값 가져오기 (내부 처리용)
+        // public static string GetOriginalEnumValue(object enumValue)
+        // {
+        //     return PatchService.GetOriginalEnumValue(enumValue) ?? enumValue?.ToString();
+        // }
     }
 } 
