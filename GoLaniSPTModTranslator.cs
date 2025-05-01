@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace GoLaniSPTModTranslator
 {
-    [BepInPlugin("com.golani.sptmodtranslator", "GoLani.SPTModTranslator", "1.0.2")]
+    [BepInPlugin("com.golani.sptmodtranslator", "GoLani.SPTModTranslator", "1.1.0")]
     public class GoLaniSPTModTranslator : BaseUnityPlugin
     {
         // 싱글톤 인스턴스

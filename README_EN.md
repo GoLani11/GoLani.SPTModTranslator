@@ -144,6 +144,9 @@ Project Folder/
 **Q. How do I find untranslated texts?**
 - In the F12 settings, check "Extract untranslated strings." As you explore the game, untranslated texts will be automatically collected. When done, check the `untranslations` folder.
 
+**Q. How do I translate text with dynamic values like resolution or screen size?**
+- As of v1.1.0, the plugin can handle strings with dynamic values (e.g., "Maximum Width (1920p)"). In your translation file, add entries like `"Maximum Width ({RESOLUTION}p)": "Maximum Width ({RESOLUTION}p)"`. The actual resolution value will be automatically substituted.
+
 **Q. Can I support multiple languages at once?**
 - Yes! Add translation files to `translations/ko/`, `translations/ja/`, `translations/en/`, etc. You can switch languages in the F12 menu.
 

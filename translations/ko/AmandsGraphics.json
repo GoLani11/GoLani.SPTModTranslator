@@ -46,7 +46,7 @@
 	"HBAO Saturation": "그림자 디테일 채도 (HBAO)",
 	"HBAO Albedo Multiplier": "그림자 디테일 밝기 영향 (HBAO)",
 	"SurroundDepthOfField": "주변 배경 흐림 효과",
-	"High-Quality Color needs to be Enabled on Graphics Settings": "이 효과를 사용하려면 게임 그래픽 설정에서 '고품질 색상' 옵션을 켜야 합니다.",
+	"High-Quality Color needs to be Enabled on Graphics Settings\"": "이 효과를 사용하려면 게임 그래픽 설정에서 '고품질 색상' 옵션을 켜야 합니다.",
 	"SurroundDOF OpticZoom": "배경 흐림 효과 시작 배율",
 	"DepthOfField will be enabled if the zoom is greater than or equal to this value": "조준경 배율이 이 값 이상일 때 배경 흐림 효과가 적용됩니다.",
 	"SurroundDOF Aperture": "주변 배경 흐림 강도 (조리개 값)",

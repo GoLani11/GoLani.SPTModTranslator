@@ -14,6 +14,18 @@ namespace GoLaniSPTModTranslator.Core
         {
             try
             {
+                // 기존 미번역 추출 파일 삭제
+                string pluginFolder = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                string outDir = Path.Combine(pluginFolder, "untranslations");
+                if (Directory.Exists(outDir))
+                {
+                    foreach (var file in Directory.GetFiles(outDir, "*_untranslated.json"))
+                    {
+                        try { File.Delete(file); }
+                        catch (Exception ex) { log.LogWarning($"기존 미번역 파일 삭제 실패: {file} - {ex.Message}"); }
+                    }
+                }
+
                 // 미번역 문자열 로깅 활성화
                 TranslationService.SetUntranslatedLogging(true);
                 log.LogInfo("미번역 문자열 추출 시작됨 - F12 메뉴를 닫고 게임에서 번역이 필요한 메뉴/화면을 탐색하세요");
