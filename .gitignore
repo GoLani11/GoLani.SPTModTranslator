@@ -1,0 +1,47 @@
+# Build output
+bin/
+obj/
+*.dll
+*.pdb
+*.exe
+
+# DLL directories
+dll/
+dlls/
+lib/
+libs/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.docstates
+*.userprefs
+
+# JetBrains Rider
+.idea/
+
+# NuGet
+packages/
+*.nupkg
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Backup files
+*.bak
+*.backup

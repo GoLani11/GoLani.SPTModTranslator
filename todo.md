@@ -27,28 +27,28 @@
   - 파일 I/O 관리자 구현
 
 ### Phase 2: 핵심 기능 (6주) - 우선순위: 중간
-- [ ] **텍스트 인터셉터 구현** `text-interceptor`
+- [x] **텍스트 인터셉터 구현** `text-interceptor`
   - TextInterceptor 클래스 구현
   - Unity 텍스트 감지 및 번역 적용
   - 컨텍스트 기반 번역 지원
 
-- [ ] **캐싱 시스템** `cache-manager`
+- [x] **캐싱 시스템** `cache-manager`
   - 다단계 캐싱 구현 (메모리 + 디스크)
   - 지연 로딩 (Lazy Loading)
   - 캐시 무효화 및 갱신 로직
 
-- [ ] **번역 매니저** `translation-manager`
+- [x] **번역 매니저** `translation-manager`
   - 계층적 번역 검색
   - 폴백 메커니즘 (한글 → 영어 → 원본)
   - 번역 우선순위 관리
 
-- [ ] **다중 Unity 텍스트 프레임워크 지원** `unity-text-frameworks`
+- [x] **다중 Unity 텍스트 프레임워크 지원** `unity-text-frameworks`
   - UGUI Text 컴포넌트 지원
   - TextMeshPro 지원
   - IMGUI 텍스트 지원
   - Legacy NGUI 지원
 
-- [ ] **ImGui 관리 패널** `imgui-panel`
+- [x] **ImGui 관리 패널** `imgui-panel`
   - 인게임 번역 관리 UI
   - 실시간 번역 미리보기
   - 번역 누락 항목 리포팅
