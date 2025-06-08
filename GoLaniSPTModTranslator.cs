@@ -25,6 +25,9 @@ namespace GoLaniSPTModTranslator
 
         // 미번역 추출 ConfigEntry
         public static ConfigEntry<bool> ExtractUntranslated;
+        
+        // 런타임 인터셉션 ConfigEntry
+        public static ConfigEntry<bool> EnableRuntimeInterception;
 
         private void Awake()
         {
@@ -78,6 +81,22 @@ namespace GoLaniSPTModTranslator
                     UntranslatedExtractor.FinishExtraction(Log);
                 }
             };
+            
+            // 런타임 인터셉션 ConfigEntry 추가
+            EnableRuntimeInterception = Config.Bind("고급 설정", "런타임 문자열 인터셉션", true, "BepInEx 플러그인의 UI 텍스트 및 알림 메시지를 실시간으로 번역합니다.");
+            EnableRuntimeInterception.SettingChanged += (s, e) =>
+            {
+                if (EnableRuntimeInterception.Value)
+                {
+                    RuntimeStringInterceptor.Initialize(Log);
+                    RuntimeStringInterceptor.PatchNotificationManager();
+                    RuntimeStringInterceptor.PatchUITextSetters();
+                }
+                else
+                {
+                    RuntimeStringInterceptor.UnpatchAll();
+                }
+            };
 
             // 번역 서비스 초기화 (기본 언어)
             TranslationService.Initialize(Log, SelectedLanguage.Value);
@@ -87,6 +106,14 @@ namespace GoLaniSPTModTranslator
             PatchService.Initialize(Log);
             if (ModEnabled.Value)
                 PatchService.ApplyPatches();
+            
+            // 런타임 인터셉터 초기화
+            if (EnableRuntimeInterception.Value)
+            {
+                RuntimeStringInterceptor.Initialize(Log);
+                RuntimeStringInterceptor.PatchNotificationManager();
+                RuntimeStringInterceptor.PatchUITextSetters();
+            }
 
             Log.LogInfo("GoLani SPT Mod Translator 초기화 완료");
         }
@@ -109,6 +136,7 @@ namespace GoLaniSPTModTranslator
         private void OnDestroy()
         {
             PatchService.UnpatchAll();
+            RuntimeStringInterceptor.UnpatchAll();
             Log.LogInfo("GoLani SPT Mod Translator 종료");
         }
     }

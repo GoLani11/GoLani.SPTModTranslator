@@ -1,0 +1,18 @@
+[
+  {
+    "Enabled": true,
+    "TargetAssembly": "Mattdokn.BossNotifier",
+    "TargetType": "BossNotifier.BossNotifierPlugin",
+    "TargetMethod": "GetBossName",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "BossNotifier"
+  },
+  {
+    "Enabled": true,
+    "TargetAssembly": "Mattdokn.BossNotifier",
+    "TargetType": "BossNotifier.BossNotifierPlugin",
+    "TargetMethod": "GetZoneName",
+    "PatchType": "PostfixReturnString",
+    "TranslationModID": "BossNotifier"
+  }
+]
